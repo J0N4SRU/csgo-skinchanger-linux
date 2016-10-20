@@ -18,8 +18,8 @@
 
 */
 
+#include <memory>
 #include <iostream>
-#include <memory.h>
 
 #include "SDK.h"
 #include "vmthook/vmthook.h"
@@ -32,8 +32,8 @@ IClientEntityList* entitylist = nullptr;
 IGameEventManager2* gameevents = nullptr;
 
 /* virtual table hooks */
-VMTHook* clientdll_hook = nullptr;
-VMTHook* gameevents_hook = nullptr;
+std::unique_ptr<VMTHook> clientdll_hook;
+std::unique_ptr<VMTHook> gameevents_hook;
 
 /* replacement FrameStageNotify function */
 void hkFrameStageNotify(void* thisptr, ClientFrameStage_t stage) {
@@ -188,18 +188,12 @@ int __attribute__((constructor)) chameleon_init() {
 	gameevents = GetInterface<IGameEventManager2>("./bin/linux64/engine_client.so", INTERFACEVERSION_GAMEEVENTSMANAGER2);
 	
 	/* hook CHLClient::FrameStageNotify */
-	clientdll_hook = new VMTHook(clientdll);
-	clientdll_hook->HookFunction((void*)hkFrameStageNotify, 36);
+	clientdll_hook = std::make_unique<VMTHook>(clientdll);
+	clientdll_hook->HookFunction(reinterpret_cast<void*>(hkFrameStageNotify), 36);
 
 	/* hook IGameEventManager2::FireEventClientSide */
-	gameevents_hook = new VMTHook(gameevents);
-	gameevents_hook->HookFunction((void*)hkFireEventClientSide, 10);
+	gameevents_hook = std::make_unique<VMTHook>(gameevents);
+	gameevents_hook->HookFunction(reinterpret_cast<void*>(hkFireEventClientSide), 10);
 
 	return 0;
-}
-
-void __attribute__((destructor)) chameleon_shutdown() {
-	/* restore virtual tables to normal */
-	delete clientdll_hook;
-	delete gameevents_hook;
 }

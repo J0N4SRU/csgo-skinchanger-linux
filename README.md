@@ -1,4 +1,4 @@
-# Skin Changer for Linux
+# csgo-skinchanger-linux (Chameleon)
 
 Minimal skin & knife changer for 64-bit Counter-Strike: Global Offensive via FrameStageNotify hook.
 

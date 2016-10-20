@@ -1,5 +1,5 @@
 CC = g++
-CXXFLAGS = -std=c++0x -m64 -Wall -c -fno-use-cxa-atexit -fPIC
+CXXFLAGS = -std=c++14 -m64 -Wall -c -fno-use-cxa-atexit -fPIC
 LDFLAGS = -nostartfiles -nostdlib -m64 -shared
 
 SOURCES=./chameleon/Chameleon.cc
