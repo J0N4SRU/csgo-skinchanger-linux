@@ -2,7 +2,7 @@ CC = g++
 CXXFLAGS = -std=c++14 -m64 -Wall -c -fno-use-cxa-atexit -fPIC
 LDFLAGS = -nostartfiles -nostdlib -m64 -shared
 
-SOURCES=./chameleon/Chameleon.cc
+SOURCES=./src/chameleon.cc ./src/hooks/FrameStageNotify.cc ./src/hooks/FireEventClientSide.cc
 OBJECTS=$(SOURCES:.cc=.o)
 
 OUT := libchameleon-csgo.so
