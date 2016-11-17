@@ -1,2 +1,4 @@
-/chameleon/Chameleon.o
 /libchameleon-csgo.so
+/src/chameleon.o
+/src/hooks/FireEventClientSide.o
+/src/hooks/FrameStageNotify.o
