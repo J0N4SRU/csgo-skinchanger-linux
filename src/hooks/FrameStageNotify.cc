@@ -61,11 +61,13 @@ void hkFrameStageNotify(void* thisptr, ClientFrameStage_t stage) {
 				/* Karambit | Tiger Tooth */
 				case WEAPON_KNIFE:
 					*weapon->GetItemDefinitionIndex() = WEAPON_KNIFE_KARAMBIT;
+					*weapon->GetModelIndex() = modelinfo->GetModelIndex("models/weapons/v_knife_karam.mdl");
 					*weapon->GetFallbackPaintKit() = 409; break;
 
 				/* M9 Bayonet | Crimson Web */
 				case WEAPON_KNIFE_T:
 					*weapon->GetItemDefinitionIndex() = WEAPON_KNIFE_M9_BAYONET;
+					*weapon->GetModelIndex() = modelinfo->GetModelIndex("models/weapons/v_knife_m9_bay.mdl");
 					*weapon->GetFallbackPaintKit() = 12; break;
 			}
 
