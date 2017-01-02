@@ -1,7 +1,7 @@
 /*
 
 	Chameleon -- basic skin changer for CS:GO on 64-bit Linux.
-	Copyright (C) 2016, aixxe. (www.aixxe.net)
+	Copyright (C) 2017, aixxe. (www.aixxe.net)
 	
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
