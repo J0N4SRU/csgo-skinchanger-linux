@@ -2,9 +2,9 @@
 
 #include <cstdint>
 
-#include "entity.h"
 #include "defines.h"
 #include "interface.h"
+#include "entity.h"
 
 #include "interfaces/IBaseClientDLL.h"
 #include "interfaces/IVModelInfoClient.h"
