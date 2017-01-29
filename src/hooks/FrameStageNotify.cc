@@ -86,6 +86,34 @@ void hkFrameStageNotify(void* thisptr, ClientFrameStage_t stage) {
 			*weapon->GetItemIDHigh() = -1;
 		}
 
+		/* If glove doesn't already exist. */
+		if(!entitylist->GetClientEntityFromHandle((void*)localplayer->GetWearables())) {
+			/* Create Glove Entity */
+			for (ClientClass* pClass = clientdll->GetAllClasses(); pClass; pClass = pClass->m_pNext)
+				if (strcmp(pClass->m_pNetworkName, "CEconWearable") == 0) {
+					int iEntry = (entitylist->GetHighestEntityIndex() + 1), iSerial = RandomInt(0x0, 0xFFF);
+					pClass->m_pCreateFn(iEntry, iSerial);
+					localplayer->GetWearables()[0] = iEntry | (iSerial << 16);
+					break;
+				}
+
+			C_BaseAttributableItem* gloves = reinterpret_cast<C_BaseAttributableItem*>(entitylist->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
+			if (!gloves)
+				return;
+
+			/* Assign glove values */
+			*gloves->GetItemDefinitionIndex() = 5033;
+			*gloves->GetFallbackPaintKit() = 10026;
+			*gloves->GetEntityQuality() = 4;
+			*gloves->GetItemIDHigh() = -1;
+			*gloves->GetFallbackSeed() = 0;
+			*gloves->GetFallbackStatTrak() = -1;
+			*gloves->GetFallbackWear() = 0.0005f;
+			*gloves->GetAccountID() = localplayer_info.xuidlow;
+			gloves->SetModelIndex(modelinfo->GetModelIndex("models/weapons/v_models/arms/glove_motorcycle/v_glove_motorcycle.mdl"));
+			gloves->GetNetworkable()->PreDataUpdate(DATA_UPDATE_CREATED);
+		}
+
 		/* get the viewmodel entity from our local player */
 		int viewmodel_entindex = localplayer->GetViewModel() & 0xFFF;
 		C_BaseViewModel* viewmodel = reinterpret_cast<C_BaseViewModel*>(entitylist->GetClientEntity(viewmodel_entindex));

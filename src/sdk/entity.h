@@ -7,6 +7,7 @@
 #define m_hViewModel 0x3AD4
 #define m_hWeapon 0x3060
 #define m_hMyWeapons 0x3528
+#define m_hMyWearables 0x3634
 #define m_AttributeManager 0x34C0
 #define m_Item 0x60
 #define m_iItemDefinitionIndex 0x268
@@ -20,8 +21,18 @@
 
 class IClientEntity {};
 
+class IClientNetworkable;
+
 class C_BaseEntity: public IClientEntity {
 	public:
+		IClientNetworkable* GetNetworkable() {
+			return (IClientNetworkable*)((uintptr_t)this + 0x10);
+		}
+
+		void SetModelIndex(int index) {
+			return GetVirtualFunction<void(*)(void*, int)>(this, 111)(this, index);
+		}
+
 		int* GetModelIndex() {
 			return reinterpret_cast<int*>(uintptr_t(this) + m_nModelIndex);
 		}
@@ -35,6 +46,10 @@ class C_BasePlayer: public C_BaseEntity {
 
 		int* GetWeapons() {
 			return reinterpret_cast<int*>(uintptr_t(this) + m_hMyWeapons);
+		}
+
+		int* GetWearables() {
+			return reinterpret_cast<int*>(uintptr_t(this) + m_hMyWearables);
 		}
 
 		int GetViewModel() {

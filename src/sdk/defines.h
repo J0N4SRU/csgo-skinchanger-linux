@@ -16,6 +16,7 @@ enum ClientFrameStage_t: int {
 #define LIFE_ALIVE 0
 #define MAX_PLAYER_NAME_LENGTH 32
 #define SIGNED_GUID_LEN 32
+#define RandomInt(nMin, nMax) (rand() % (nMax - nMin + 1) + nMin)
 
 /* indexes from items_game */
 enum ItemDefinitionIndex: int {
