@@ -25,7 +25,6 @@ class IClientNetworkable;
 
 class C_BaseEntity: public IClientEntity {
 	public:
-
 		IClientNetworkable* GetNetworkable() {
 			return (IClientNetworkable*)((uintptr_t)this + 0x10);
 		}
